@@ -1,9 +1,11 @@
 {
-    "movies": [
+    "media": [
         { "name": "Nunflix", "url": "https://nunflix.org/" },
         { "name": "Hurawatch", "url": "https://en.hurawatch-official.com/" },
         { "name": "123Movies", "url": "https://ww2.123moviesfree.net/" },
-        { "name": "SolarMovie", "url": "https://wwv.solarmovie.one/" }
+        { "name": "SolarMovie", "url": "https://wwv.solarmovie.one/" },
+        { "name": "1Movies", "url": "https://1movies.bz/" },
+        { "name": "YFlix", "url": "https://yflix.to/" }
     ],
     "games": [
         { "name": "Go Interstellar", "url": "https://gointerstellar.app/" },
