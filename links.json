@@ -1,0 +1,13 @@
+{
+    "movies": [
+        { "name": "Nunflix", "url": "https://nunflix.org/" },
+        { "name": "Hurawatch", "url": "https://en.hurawatch-official.com/" }
+    ],
+    "games": [
+        { "name": "Moomoo.io", "url": "https://moomoo.io" },
+        { "name": "Krunker.io", "url": "https://krunker.io" }
+    ],
+    "soundboards": [
+        { "name": "MyInstants", "url": "https://www.myinstants.com/" }
+    ]
+}
