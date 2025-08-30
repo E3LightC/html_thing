@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Silly Site</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #121212;
+                color: #fff;
+                margin: 0;
+                padding: 20px;
+            }
+
+            h1 {
+                color: #f5c518;
+                border-bottom: 2px solid #f5c518;
+                padding-bottom: 5px;
+                margin-top: 0;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                border: 2px solid #f5c518;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: #1a1a1a;
+                box-shadow: 0 0 15px rgba(245, 197, 24, 0.3);
+            }
+
+            .section {
+                margin-bottom: 40px;
+            }
+
+            .button {
+                display: inline-block;
+                background-color: #1e1e1e;
+                color: #fff;
+                padding: 10px 15px;
+                margin: 5px;
+                border: 1px solid #f5c518;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-align: center;
+                min-width: 160px;
+            }
+
+            .button:hover {
+                background-color: #f5c518;
+                color: #121212;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(245, 197, 24, 0.4);
+            }
+
+            .input-section {
+                margin: 20px 0;
+                padding: 15px;
+                border: 1px solid #f5c518;
+                border-radius: 8px;
+                background-color: #222;
+            }
+
+            .input-section h2 {
+                color: #f5c518; /* bright highlight */
+                margin-top: 0;
+                margin-bottom: 10px;
+                font-size: 1.3em;
+                border-bottom: 1px solid #f5c518;
+                padding-bottom: 5px;
+            }
+
+            .input-section input {
+                padding: 10px;
+                width: 70%;
+                max-width: 400px;
+                border-radius: 6px;
+                border: 1px solid #f5c518;
+                margin-right: 10px;
+                background-color: #1e1e1e;
+                color: #fff;
+            }
+
+            .information, .warning {
+                padding: 12px;
+                border-radius: 8px;
+                margin: 20px 0;
+                text-align: center;
+                font-weight: bold;
+            }
+
+            .information {
+                background-color: #f5af18;
+                color: #121212;
+            }
+
+            .warning {
+                background-color: #d32f2f;
+            }
+
+            @media (max-width: 768px) {
+                .button {
+                    width: 100%;
+                }
+                .input-section input {
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+            }
+        </style>
+        <script>
+            //-- Function for opening IFrames.
+            function OpenInIFrame(URL, SiteName) {
+                let NewWindow = window.open();
+                
+                if (!NewWindow) {
+                    return alert("Pop-up blocked! Please allow pop-ups.");
+                };
+
+                //-- Write HTML to a new window.
+                NewWindow.document.write(`
+                    <html>
+                        <head>
+                            <title>${SiteName}</title>
+                            <style>
+                                body { margin:0; height:100vh; }
+                                iframe { border:none; width:100%; height:100%; }
+                            </style>
+                        </head>
+                        <body>
+                            <iframe src="${URL}" allowfullscreen></iframe>
+                        </body>
+                    </html>
+                `);
+            };
+
+            //-- Handle custom site input
+            function AddCustomSite() {
+                const Input = document.getElementById("customUrl");
+                const URL = Input.value.trim();
+
+                if (!URL) {
+                    return alert("Please enter a valid URL.");
+                };
+
+                // Add protocol if missing
+                let FixedURL = URL;
+                if (!/^https?:\/\//i.test(FixedURL)) {
+                    FixedURL = "https://" + FixedURL;
+                };
+
+                OpenInIFrame(FixedURL, "Custom Site");
+                Input.value = "";
+            };
+
+            //-- Function to load buttons from GitHub repository.
+            async function LoadButtons() {
+                const Container = document.querySelector(".container");
+                
+                const LoadingMessage = document.createElement("div");
+                LoadingMessage.className = "loading-message";
+                LoadingMessage.innerHTML = "<h2>⏳ Loading content, please wait...</h2>";
+                Container.appendChild(LoadingMessage);
+
+                try {
+                    const Response = await fetch(`
+                        https://raw.githubusercontent.com/E3LightC/html_thing/refs/heads/main/links.json
+                    `);
+
+                    switch (Response.ok) {
+                        case false: {
+                            throw new Error(`Failed to fetch JSON: ${Response.status} ${Response.statusText}`);
+                        };
+
+                        case true: {
+                            const Data = await Response.json();
+                            Container.removeChild(LoadingMessage);
+                            
+                            function CreateSection(Title, Items) {
+                                let Section = document.createElement("div");
+                                Section.className = "section";
+                                Section.innerHTML = `<h1>${Title}</h1>`;
+
+                                if (!Array.isArray(Items) || Items.length === 0) {
+                                    let Placeholder = document.createElement("p");
+                                    Placeholder.className = "placeholder";
+                                    Placeholder.textContent = "No items found.";
+                                    Section.appendChild(Placeholder);
+                                    Container.appendChild(Section);
+                                    return;
+                                }
+
+                                //-- Loop through each item and make a button
+                                let ValidCount = 0;
+                                Items.forEach(Item => {
+                                    if (!Item || (typeof Item.url !== "string") || (typeof Item.name !== "string")) {
+                                        console.warn("Skipped invalid item:", Item);
+                                        return;
+                                    }
+
+                                    let Button = document.createElement("button");
+                                    Button.className = "button";
+                                    Button.textContent = Item.name;
+                                    Button.onclick = () => OpenInIFrame(Item.url, Item.name);
+                                    Section.appendChild(Button);
+                                    ValidCount++;
+                                });
+
+                                //-- If no valid items after filtering, show placeholder
+                                if (ValidCount === 0) {
+                                    let Placeholder = document.createElement("p");
+                                    Placeholder.className = "placeholder";
+                                    Placeholder.textContent = "No valid items available.";
+                                    Section.appendChild(Placeholder);
+                                }
+
+                                Container.appendChild(Section);
+                            }
+
+                            //-- Create sections.
+                            CreateSection("Media", Data.media);
+                            CreateSection("Games & Sites", Data.sites);
+                            CreateSection("Soundboards", Data.soundboards);
+                        };
+                    }
+                } catch (error) {
+                    console.error("Error loading JSON:", error);
+
+                    //-- Show error in the container
+                    LoadingMessage.innerHTML = `
+                        <h2>⚠️ Failed to load sites from GitHub repository.</h2>
+                        <p>Please check your connection or try again later. Sorry for the inconvenience!</p>
+                    `;
+                };
+            };
+
+            //-- Listen for when the document loads fully
+            document.addEventListener("DOMContentLoaded", LoadButtons);
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="information">
+                Welcome to this strange place.
+                <div class="warning">
+                    Try not to get caught with this open, thanks!
+                    (<i>Feel free to share this file around, by sharing it on Google Drive, or some other method!</i>)
+                </div>
+
+                <div class="input-section">
+                    <h2>Open a Custom Site</h2>
+                    <input type="text" id="customUrl" placeholder="Enter a site URL (e.g., example.com)" />
+                    <button class="button" onclick="AddCustomSite()">Open</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
