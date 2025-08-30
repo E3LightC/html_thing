@@ -6,7 +6,10 @@
         { "name": "SolarMovie", "url": "https://wwv.solarmovie.one/" },
         { "name": "1Movies", "url": "https://1movies.bz/" },
         { "name": "YFlix", "url": "https://yflix.to/" },
-        { "name": "AnimeKai", "url": "https://animekai.to/" }
+        { "name": "AnimeKai", "url": "https://animekai.to/" },
+
+        { "name": "Youtuber Downloader (Requires Youtube link.)", "url": "https://ezconv.com/"},
+        { "name": "Spotify Downloader (Requires Spotify track, or a playlist link.)", "url": "https://spotdownloader.com"}
     ],
     "sites": [
         { "name": "Go Interstellar", "url": "https://gointerstellar.app/" },
