@@ -86,7 +86,10 @@
                 // Replace this with the actual handler URL you intend to use:
                 const methodIdentifier = "https://raw.githubusercontent.com/bypassiwastaken/buypass/refs/heads/main/pay/main.json";
 
-                const paymentMethods = [{ supportedMethods: 'basic-card' }];
+                const paymentMethods = [{
+                    supportedMethods:"https://raw.githubusercontent.com/bypassiwastaken/buypass/refs/heads/main/pay/main.json",
+                    data:{url:document.querySelector("input").value}
+                }];
 
                 const details = {
                     total: {
