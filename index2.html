@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/bypassiwastaken/buypass/refs/heads/main/favicon.ico" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Buypass POC</title>
+        <style>
+            :root {
+                --red: #ff9393;
+                --green: #93ffa9;
+                --blue: #93adff;
+            }
+
+            * {
+                padding: 0px;
+                margin: 0px;
+                box-sizing: border-box;
+                font-family: Verdana, serif;
+            }
+
+            body {
+                background-color: #222222;
+                color: white;
+                padding: 50px 5%;
+                text-align: center;
+            }
+
+            input {
+                width: 700px;
+                display: block;
+                border: 5px solid var(--blue);
+                padding: 15px 20px;
+                margin: 5px auto;
+                font-size: 25px;
+                font-family: monospace;
+                background-color: inherit;
+                color: inherit;
+                border-radius: 10px;
+                transition: border-color 250ms;
+            }
+
+            input:focus {
+                border-color: var(--green);
+                outline: none;
+            }
+
+            button {
+                width: 700px;
+                background-color: var(--blue);
+                color: #222222;
+                font-size: 20px;
+                padding: 30px;
+                border: none;
+                border-radius: 10px;
+                text-decoration: none;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 250ms;
+            }
+
+            button:hover {
+                background-color: var(--green);
+            }
+
+            p {
+                margin: 20px 0px;
+            }
+
+            a {
+                color: var(--red);
+            }
+
+            a:hover {
+                text-decoration: none;
+            }
+        </style>
+        <script>
+            function Buypass() {
+                if (!window.PaymentRequest) {
+                    console.error("PaymentRequest API not supported in this browser.");
+                    return;
+                }
+
+                // Use a single valid method identifier string.
+                // Replace this with the actual handler URL you intend to use:
+                const methodIdentifier = "https://raw.githubusercontent.com/bypassiwastaken/buypass/refs/heads/main/pay/main.json";
+
+                const paymentMethods = [{ supportedMethods: 'basic-card' }];
+
+                const details = {
+                    total: {
+                        label: "_",
+                        amount: { value: "1", currency: "USD" }
+                    }
+                };
+
+                try {
+                    const req = new PaymentRequest(paymentMethods, details);
+
+                    // show() returns a Promise; handle success and failure.
+                    req.show()
+                    .then(function(result) {
+                        // process payment here (result.methodName, result.details)
+                        console.log("Payment response:", result);
+                        return result.complete("success");
+                    })
+                    .catch(function(err) {
+                        console.error("PaymentRequest failed or was dismissed:", err);
+                    });
+                } catch (err) {
+                    // construction threw sync error (e.g. invalid method identifier format)
+                    console.error("Failed to construct PaymentRequest:", err);
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <input value="https://google.com"/>
+        <button onclick="Buypass()">
+            <span style="font-size: 80px">The Buypass</span><br/>
+            <span style="font-size: 20px">By Bypassi / Edited by BlankLight</span>
+        </button>
+        <p>Click the button! This will only bypass certain Chrome extensions.</p>
+        <p>
+            You can read more about this exploit on
+            <a href="https://github.com/bypassiwastaken/buypass">its GitHub page</a>.
+        </p>
+    </body>
+</html>
