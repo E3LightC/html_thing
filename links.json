@@ -8,8 +8,8 @@
         { "name": "YFlix", "url": "https://yflix.to/" },
         { "name": "AnimeKai", "url": "https://animekai.to/" },
 
-        { "name": "Youtuber Downloader (Requires Youtube link.)", "url": "https://ezconv.com/" },
-        { "name": "Spotify Downloader (Requires Spotify track, or a playlist link.)", "url": "https://spotidown.app/" }
+        { "name": "Youtuber Downloader (Requires YouTube link.)", "url": "https://ezconv.com/" },
+        { "name": "Spotify Downloader (Requires Spotify track, or a playlist link.)", "url": "https://spotidownloader.com/en" }
     ],
     "sites": [
         { "name": "Go Interstellar", "url": "https://gointerstellar.app/" },
