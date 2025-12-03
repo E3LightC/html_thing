@@ -14,10 +14,7 @@
     "sites": [
         { "name": "Go Interstellar", "url": "https://gointerstellar.app/" },
         { "name": "Papa’s Games", "url": "https://papas-games.io/" },
-        { "name": "Addicting Games", "url": "https://www.addictinggames.com/" },
-        { "name": "Poki", "url": "https://www.poki.com/" },
         { "name": "IO Games Hub", "url": "https://iogames.onl/" },
-        { "name": "Snokido", "url": "https://www.snokido.com/" },
 
         { "name": "Chrome Dino", "url": "https://vocalnutria9174.github.io/dino/" },
         { "name": "Tomb of the Mask", "url": "https://map-l.github.io/play/totm/" },
@@ -26,7 +23,6 @@
         { "name": "Baldi's Basics", "url": "https://map-l.github.io/play/baldis-basics/" },
         { "name": "Smash Karts", "url": "https://smashkarts.io/" },
         { "name": "Burrito Bison", "url": "https://map-l.github.io/play/burritobison/" },
-        { "name": "People Playground", "url": "https://map-l.github.io/play/people-playground/" },
         { "name": "Subway Surfers", "url": "https://map-l.github.io/play/subwaysurfers/" },
         { "name": "Temple Run", "url": "https://map-l.github.io/play/templerun/" },
         { "name": "Copter.io", "url": "https://copter.io/" },
